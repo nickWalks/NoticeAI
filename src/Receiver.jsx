@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import database from './firebase';
 import { ref, onValue, query, orderByChild } from 'firebase/database';
+import Header from './Header';
 
 const Receiver = () => {
     const messagesRef = ref(database, 'messages');
@@ -36,16 +37,19 @@ const Receiver = () => {
     }, [messagesQuery]);
 
     return (
-        <ul role="list" className="divide-y divide-gray-100">
-            {messages.map((message) => (
-                <li key={message.id} className="flex gap-x-4 py-5">
+        <>
+            <Header />
+            <ul role="list" className="divide-y divide-gray-100">
+                {messages.map((message) => (
+                    <li key={message.id} className="flex gap-x-4 py-5">
 
-                    <div className="min-w-0">
-                        <p className="text-sm font-semibold leading-6 text-gray-900">{message.content}</p>
-                    </div>
-                </li>
-            ))}
-        </ul>
+                        <div className="min-w-0">
+                            <p className="text-sm font-semibold leading-6 text-gray-900">{message.content}</p>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </>
     )
 }
 
