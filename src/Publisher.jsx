@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { getDatabase, ref, push, remove, onValue, set } from 'firebase/database';
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
+import DeleteModal from './DeleteModal';
 
 const Publisher = () => {
+    const [openModal, setOpenModal] = useState(false);
     const [message, setMessage] = useState('');
 
     const database = getDatabase();
@@ -25,14 +27,6 @@ const Publisher = () => {
     return (
         <div className="Publisher">
             <form onSubmit={handleSubmit}>
-
-
-
-
-
-
-
-
                 <div>
                     <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">
                         Add your comment
@@ -43,7 +37,6 @@ const Publisher = () => {
                             name="comment"
                             id="comment"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            defaultValue={''}
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                         />
@@ -61,12 +54,14 @@ const Publisher = () => {
             </form>
 
             <button
-                onClick={deleteAllMessages}
+                onClick={() => setOpenModal(true)}
                 className="m-8 inline-flex items-center gap-x-2 rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
             >
                 Delete All Messages
                 <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
             </button>
+
+            {openModal && <DeleteModal open={openModal} onClose={() => setOpenModal(false)} onDelete={deleteAllMessages} />}
 
         </div>
 
