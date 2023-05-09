@@ -1,5 +1,9 @@
+/* eslint-env node */
 // Use export instead of module.exports
-export default {
+
+// tailwind.config.js
+
+const config = {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -8,5 +12,8 @@ export default {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
+
+module.exports = config;
+
