@@ -36,18 +36,17 @@ const Receiver = () => {
     }, [messagesQuery]);
 
     return (
-        <div className="Receiver p-4">
-            {loading && <p>Loading messages...</p>}
-            {error && <p>Error: {error.message}</p>}
-            <ul className="list-disc list-inside">
-                {messages.map((message) => (
-                    <li key={message.id} className="my-1">
-                        {message.content}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+        <ul role="list" className="divide-y divide-gray-100">
+            {messages.map((message) => (
+                <li key={message.id} className="flex gap-x-4 py-5">
+
+                    <div className="min-w-0">
+                        <p className="text-sm font-semibold leading-6 text-gray-900">{message.content}</p>
+                    </div>
+                </li>
+            ))}
+        </ul>
+    )
+}
 
 export default Receiver;
